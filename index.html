@@ -6,6 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NovelVerse - Read Your Next Story</title>
 
+<!-- PWA SETTINGS -->
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#171522">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NovelVerse">
+
 <style>
 * {
     margin: 0;
@@ -25,6 +32,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
     border-bottom: 1px solid #292536;
     position: sticky;
     top: 0;
@@ -46,6 +55,25 @@ nav a {
 
 nav a:hover {
     color: #bd9aff;
+}
+
+/* INSTALL BUTTON */
+#installButton {
+    background: #a77af5;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#installButton:hover {
+    background: #8757db;
+}
+
+#installButton[hidden] {
+    display: none;
 }
 
 .hero {
@@ -184,7 +212,7 @@ footer {
     margin-top: 40px;
 }
 
-/* Reader */
+/* READER */
 
 .reader {
     display: none;
@@ -227,7 +255,7 @@ footer {
     background: #382c49 !important;
 }
 
-/* Login */
+/* LOGIN */
 
 .modal {
     display: none;
@@ -311,12 +339,17 @@ footer {
 
 <header>
     <div class="logo">NovelVerse.</div>
+
     <nav>
         <a href="#home">Home</a>
         <a href="#library">Library</a>
         <a href="#favorites">Favorites</a>
         <a href="#" onclick="openLogin()">Login</a>
     </nav>
+
+    <button id="installButton" hidden>
+        📲 Install NovelVerse
+    </button>
 </header>
 
 <section class="hero" id="home">
@@ -362,7 +395,7 @@ footer {
     <p style="margin-top:10px">Your world of endless stories.</p>
 </footer>
 
-<!-- Reading area -->
+<!-- READING AREA -->
 <div class="reader" id="reader">
     <button class="close-btn" onclick="closeReader()">← Back to Library</button>
 
@@ -378,7 +411,7 @@ footer {
     </div>
 </div>
 
-<!-- Login area -->
+<!-- LOGIN AREA -->
 <div class="modal" id="loginModal">
     <div class="modal-box">
         <h2>Welcome to NovelVerse</h2>
@@ -392,7 +425,7 @@ footer {
 
 <script>
 
-// Novel database: replace these sample stories with your own.
+// NOVEL DATABASE
 const novels = [
     {
         id: 1,
@@ -609,8 +642,65 @@ function login() {
 
 displayBooks();
 
+// ===================================
+// NOVELVERSE PWA INSTALLATION SYSTEM
+// ===================================
+
+let deferredInstallPrompt = null;
+const installButton = document.getElementById("installButton");
+
+// Register service worker
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(registration => {
+                console.log("NovelVerse app is ready!", registration);
+            })
+            .catch(error => {
+                console.error("Service worker error:", error);
+            });
+    });
+}
+
+// Detect when the browser can offer installation
+window.addEventListener("beforeinstallprompt", event => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+
+    if (installButton) {
+        installButton.hidden = false;
+    }
+});
+
+// Install button action
+if (installButton) {
+    installButton.addEventListener("click", async () => {
+        if (!deferredInstallPrompt) {
+            alert("Open your browser menu and choose Install app or Add to Home screen.");
+            return;
+        }
+
+        deferredInstallPrompt.prompt();
+
+        const result = await deferredInstallPrompt.userChoice;
+
+        console.log("Installation choice:", result.outcome);
+
+        deferredInstallPrompt = null;
+        installButton.hidden = true;
+    });
+}
+
+// Detect successful installation
+window.addEventListener("appinstalled", () => {
+    alert("NovelVerse has been installed successfully!");
+
+    if (installButton) {
+        installButton.hidden = true;
+    }
+});
+
 </script>
 
 </body>
-          </html>
-          
+</html>
