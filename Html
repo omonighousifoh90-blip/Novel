@@ -1,1 +1,616 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovelVerse - Read Your Next Story</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0d0c14;
+    color: #f5f2ff;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: #171522;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #292536;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #b99aff;
+}
+
+nav a {
+    color: #ddd8eb;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #bd9aff;
+}
+
+.hero {
+    padding: 75px 7%;
+    background: linear-gradient(120deg, #211735, #10101b);
+}
+
+.hero h1 {
+    font-size: 42px;
+    max-width: 600px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #b6b0c6;
+    margin-bottom: 25px;
+    line-height: 1.7;
+}
+
+.hero button, .primary-btn {
+    background: #a77af5;
+    color: white;
+    border: none;
+    padding: 13px 24px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hero button:hover, .primary-btn:hover {
+    background: #8757db;
+}
+
+.section {
+    padding: 40px 7%;
+}
+
+.section h2 {
+    margin-bottom: 22px;
+    font-size: 24px;
+}
+
+.search-box {
+    width: 100%;
+    padding: 15px;
+    background: #191725;
+    border: 1px solid #383146;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.filters button {
+    background: #201c2d;
+    color: white;
+    border: 1px solid #393148;
+    padding: 9px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.filters button.active,
+.filters button:hover {
+    background: #a77af5;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    gap: 22px;
+}
+
+.book {
+    background: #191725;
+    border: 1px solid #2b2738;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.book:hover {
+    transform: translateY(-5px);
+    border-color: #a77af5;
+}
+
+.book img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    background: #30283e;
+}
+
+.book-info {
+    padding: 13px;
+}
+
+.book-info h3 {
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.book-info p {
+    color: #aaa3ba;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.book-info button {
+    width: 100%;
+    background: #a77af5;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.favorite {
+    background: #30283e !important;
+    margin-top: 7px;
+}
+
+footer {
+    background: #171522;
+    padding: 30px;
+    text-align: center;
+    color: #aaa3ba;
+    margin-top: 40px;
+}
+
+/* Reader */
+
+.reader {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0d0c14;
+    z-index: 20;
+    overflow-y: auto;
+    padding: 25px 7%;
+}
+
+.reader-content {
+    max-width: 750px;
+    margin: 35px auto;
+}
+
+.reader h2 {
+    color: #c3a5ff;
+    margin-bottom: 20px;
+}
+
+.reader p {
+    font-size: 18px;
+    line-height: 2;
+    color: #e2ddeb;
+    margin-bottom: 20px;
+}
+
+.reader button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    background: #a77af5;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.close-btn {
+    background: #382c49 !important;
+}
+
+/* Login */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000c;
+    z-index: 30;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-box {
+    background: #191725;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 380px;
+}
+
+.modal-box h2 {
+    margin-bottom: 20px;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    background: #0d0c14;
+    border: 1px solid #383146;
+    color: white;
+}
+
+.modal-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #a77af5;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-box .close-btn {
+    background: #383146;
+}
+
+@media(max-width:600px) {
+    header {
+        padding: 17px 5%;
+    }
+
+    nav a {
+        margin-left: 9px;
+        font-size: 12px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .section {
+        padding: 30px 5%;
+    }
+
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .book img {
+        height: 170px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">NovelVerse.</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#library">Library</a>
+        <a href="#favorites">Favorites</a>
+        <a href="#" onclick="openLogin()">Login</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1>Discover Stories That Stay With You.</h1>
+    <p>
+        Explore amazing novels, discover new authors
+        and enjoy your favorite stories anywhere.
+    </p>
+    <button onclick="document.getElementById('library').scrollIntoView()">
+        Explore Novels
+    </button>
+</section>
+
+<section class="section" id="library">
+    <h2>Explore Our Library</h2>
+
+    <input
+        class="search-box"
+        type="text"
+        id="search"
+        placeholder="Search novels or authors..."
+        oninput="displayBooks()"
+    >
+
+    <div class="filters">
+        <button class="active" onclick="filterBooks('All', this)">All</button>
+        <button onclick="filterBooks('Romance', this)">Romance</button>
+        <button onclick="filterBooks('Fantasy', this)">Fantasy</button>
+        <button onclick="filterBooks('Action', this)">Action</button>
+        <button onclick="filterBooks('Mystery', this)">Mystery</button>
+    </div>
+
+    <div class="book-grid" id="bookGrid"></div>
+</section>
+
+<section class="section" id="favorites">
+    <h2>My Favorite Novels</h2>
+    <div class="book-grid" id="favoriteGrid"></div>
+</section>
+
+<footer>
+    <p>© 2026 NovelVerse. All Rights Reserved.</p>
+    <p style="margin-top:10px">Your world of endless stories.</p>
+</footer>
+
+<!-- Reading area -->
+<div class="reader" id="reader">
+    <button class="close-btn" onclick="closeReader()">← Back to Library</button>
+
+    <div class="reader-content">
+        <h2 id="readerTitle"></h2>
+        <p id="readerAuthor"></p>
+        <hr style="border-color:#383146;margin:20px 0">
+        <h3 id="chapterTitle"></h3>
+        <p id="chapterText"></p>
+
+        <button onclick="previousChapter()">Previous Chapter</button>
+        <button onclick="nextChapter()">Next Chapter</button>
+    </div>
+</div>
+
+<!-- Login area -->
+<div class="modal" id="loginModal">
+    <div class="modal-box">
+        <h2>Welcome to NovelVerse</h2>
+        <input id="username" placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <button class="close-btn" onclick="closeLogin()">Close</button>
+        <p id="loginMessage" style="margin-top:15px;color:#c3a5ff"></p>
+    </div>
+</div>
+
+<script>
+
+// Novel database: replace these sample stories with your own.
+const novels = [
+    {
+        id: 1,
+        title: "The Hidden Heart",
+        author: "Alex Morgan",
+        genre: "Romance",
+        cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Beginning",
+                text: "The rain fell softly against the window. Amelia stood alone, wondering whether life would ever bring her the happiness she had always dreamed of. Then came a knock at the door. Someone had returned after years away."
+            },
+            {
+                title: "Chapter 2 - Unexpected Meeting",
+                text: "The door opened slowly. Standing outside was Daniel, the person she had tried so hard to forget. Neither spoke for a moment. Some memories never truly disappear."
+            }
+        ]
+    },
+    {
+        id: 2,
+        title: "Kingdom of Shadows",
+        author: "James Carter",
+        genre: "Fantasy",
+        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Lost Kingdom",
+                text: "Beyond the mountains stood a forgotten kingdom. Its towers had remained silent for centuries, until a young traveler discovered a mysterious glowing stone."
+            },
+            {
+                title: "Chapter 2 - The Awakening",
+                text: "The stone began to shine brighter. An ancient voice echoed through the valley, calling the traveler by a name nobody had spoken in generations."
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "The Last Mission",
+        author: "David Stone",
+        genre: "Action",
+        cover: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Assignment",
+                text: "At midnight, a message arrived. One final mission stood between Marcus and the truth he had been chasing for years."
+            },
+            {
+                title: "Chapter 2 - The Chase",
+                text: "Engines roared across the empty streets. Marcus knew he had only one chance to finish the mission."
+            }
+        ]
+    },
+    {
+        id: 4,
+        title: "Mystery of the Night",
+        author: "Sarah Blake",
+        genre: "Mystery",
+        cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Secret",
+                text: "Every night at exactly midnight, a light appeared in the abandoned house. Nobody knew who lived there, or why the light never went out."
+            },
+            {
+                title: "Chapter 2 - The Discovery",
+                text: "Curiosity finally overcame fear. Emma walked toward the old house, unaware that someone had been watching her."
+            }
+        ]
+    }
+];
+
+let currentGenre = "All";
+let currentBook = null;
+let currentChapter = 0;
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+function displayBooks() {
+    const search = document.getElementById("search").value.toLowerCase();
+
+    const filtered = novels.filter(book => {
+        const matchesGenre =
+            currentGenre === "All" || book.genre === currentGenre;
+
+        const matchesSearch =
+            book.title.toLowerCase().includes(search) ||
+            book.author.toLowerCase().includes(search);
+
+        return matchesGenre && matchesSearch;
+    });
+
+    const grid = document.getElementById("bookGrid");
+
+    grid.innerHTML = filtered.length ? filtered.map(book => `
+        <div class="book">
+            <img src="${book.cover}" alt="${book.title}">
+            <div class="book-info">
+                <h3>${book.title}</h3>
+                <p>${book.author}</p>
+                <p>${book.genre}</p>
+                <button onclick="openReader(${book.id})">Read Novel</button>
+                <button class="favorite" onclick="toggleFavorite(${book.id})">
+                    ${favorites.includes(book.id) ? "♥ Saved" : "♡ Add Favorite"}
+                </button>
+            </div>
+        </div>
+    `).join("") : "<p>No novels found.</p>";
+
+    displayFavorites();
+}
+
+function filterBooks(genre, button) {
+    currentGenre = genre;
+
+    document.querySelectorAll(".filters button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    displayBooks();
+}
+
+function toggleFavorite(id) {
+    if (favorites.includes(id)) {
+        favorites = favorites.filter(item => item !== id);
+    } else {
+        favorites.push(id);
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    displayBooks();
+}
+
+function displayFavorites() {
+    const grid = document.getElementById("favoriteGrid");
+
+    const saved = novels.filter(book => favorites.includes(book.id));
+
+    grid.innerHTML = saved.length ? saved.map(book => `
+        <div class="book">
+            <img src="${book.cover}" alt="${book.title}">
+            <div class="book-info">
+                <h3>${book.title}</h3>
+                <p>${book.author}</p>
+                <button onclick="openReader(${book.id})">Read Novel</button>
+                <button class="favorite" onclick="toggleFavorite(${book.id})">
+                    Remove Favorite
+                </button>
+            </div>
+        </div>
+    `).join("") : "<p>You have no favorite novels yet.</p>";
+}
+
+function openReader(id) {
+    currentBook = novels.find(book => book.id === id);
+    currentChapter = 0;
+
+    document.getElementById("reader").style.display = "block";
+    showChapter();
+
+    window.scrollTo(0, 0);
+}
+
+function showChapter() {
+    const chapter = currentBook.chapters[currentChapter];
+
+    document.getElementById("readerTitle").textContent = currentBook.title;
+    document.getElementById("readerAuthor").textContent = "By " + currentBook.author;
+    document.getElementById("chapterTitle").textContent = chapter.title;
+    document.getElementById("chapterText").textContent = chapter.text;
+}
+
+function nextChapter() {
+    if (currentChapter < currentBook.chapters.length - 1) {
+        currentChapter++;
+        showChapter();
+    } else {
+        alert("You have reached the last chapter!");
+    }
+}
+
+function previousChapter() {
+    if (currentChapter > 0) {
+        currentChapter--;
+        showChapter();
+    }
+}
+
+function closeReader() {
+    document.getElementById("reader").style.display = "none";
+}
+
+function openLogin() {
+    document.getElementById("loginModal").style.display = "flex";
+}
+
+function closeLogin() {
+    document.getElementById("loginModal").style.display = "none";
+}
+
+function login() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!username || !password) {
+        document.getElementById("loginMessage").textContent =
+            "Please fill in all fields.";
+        return;
+    }
+
+    document.getElementById("loginMessage").textContent =
+        "This is a demo login. Connect a secure authentication service to create real accounts.";
+}
+
+displayBooks();
+
+</script>
+
+</body>
+</html>
+
