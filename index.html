@@ -594,22 +594,209 @@ function closeLogin() {
 }
 
 function login() {
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value;
-
-    if (!username || !password) {
-        document.getElementById("loginMessage").textContent =
-            "Please fill in all fields.";
-        return;
+const novels = [
+    {
+        id: 1,
+        title: "The Hidden Heart",
+        author: "Alex Morgan",
+        genre: "Romance",
+        cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Beginning",
+                text: "The rain fell softly against the window. Amelia stood alone, wondering whether life would ever bring her the happiness she had always dreamed of. Then came a knock at the door."
+            },
+            {
+                title: "Chapter 2 - Unexpected Meeting",
+                text: "The door opened slowly. Standing outside was Daniel, the person she had tried so hard to forget. Some memories never truly disappear."
+            }
+        ]
+    },
+    {
+        id: 2,
+        title: "Kingdom of Shadows",
+        author: "James Carter",
+        genre: "Fantasy",
+        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Lost Kingdom",
+                text: "Beyond the mountains stood a forgotten kingdom. Its towers had remained silent for centuries, until a young traveler discovered a mysterious glowing stone."
+            },
+            {
+                title: "Chapter 2 - The Awakening",
+                text: "The stone began to shine brighter. An ancient voice echoed through the valley, calling the traveler by a name nobody had spoken in generations."
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "The Last Mission",
+        author: "David Stone",
+        genre: "Action",
+        cover: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Assignment",
+                text: "At midnight, a message arrived. One final mission stood between Marcus and the truth he had been chasing for years."
+            },
+            {
+                title: "Chapter 2 - The Chase",
+                text: "Engines roared across the empty streets. Marcus knew he had only one chance to finish the mission."
+            }
+        ]
+    },
+    {
+        id: 4,
+        title: "Mystery of the Night",
+        author: "Sarah Blake",
+        genre: "Mystery",
+        cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Secret",
+                text: "Every night at exactly midnight, a light appeared in the abandoned house. Nobody knew who lived there, or why the light never went out."
+            },
+            {
+                title: "Chapter 2 - The Discovery",
+                text: "Curiosity finally overcame fear. Emma walked toward the old house, unaware that someone had been watching her."
+            }
+        ]
+    },
+    {
+        id: 5,
+        title: "Love Beyond Distance",
+        author: "Emily Rose",
+        genre: "Romance",
+        cover: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - Miles Apart",
+                text: "Every evening, Lily waited for the familiar message from Noah. Thousands of miles separated them, but their hearts remained close."
+            },
+            {
+                title: "Chapter 2 - The Promise",
+                text: "Noah made a promise that changed everything. He would return before the first rain of the season."
+            }
+        ]
+    },
+    {
+        id: 6,
+        title: "The Dragon's Secret",
+        author: "Oliver King",
+        genre: "Fantasy",
+        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Cave",
+                text: "A young explorer entered a forgotten cave and discovered a sleeping dragon surrounded by golden treasures."
+            },
+            {
+                title: "Chapter 2 - The Ancient Power",
+                text: "The dragon opened its eyes and revealed a secret about the kingdom that no human had known for a thousand years."
+            }
+        ]
+    },
+    {
+        id: 7,
+        title: "City of Broken Dreams",
+        author: "Michael Brooks",
+        genre: "Mystery",
+        cover: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Missing Letter",
+                text: "A strange letter arrived at Daniel's apartment. It contained only one sentence: Stop searching for the truth."
+            },
+            {
+                title: "Chapter 2 - Hidden Evidence",
+                text: "Daniel followed the clues through the old city and discovered that someone had been hiding a terrible secret."
+            }
+        ]
+    },
+    {
+        id: 8,
+        title: "Warriors of Destiny",
+        author: "Robert Hayes",
+        genre: "Action",
+        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Call",
+                text: "When danger threatened their village, three young warriors answered the call to protect their people."
+            },
+            {
+                title: "Chapter 2 - The Battle",
+                text: "The battle began at sunrise. Every warrior knew that the future of their home depended on their courage."
+            }
+        ]
+    },
+    {
+        id: 9,
+        title: "A Promise in Paris",
+        author: "Sophia Lane",
+        genre: "Romance",
+        cover: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - First Glance",
+                text: "Under the lights of Paris, Claire bumped into a stranger who would soon become the most important person in her life."
+            },
+            {
+                title: "Chapter 2 - A New Beginning",
+                text: "Their friendship slowly became something deeper, but Claire had one secret she was afraid to share."
+            }
+        ]
+    },
+    {
+        id: 10,
+        title: "The Forbidden Forest",
+        author: "Daniel Frost",
+        genre: "Fantasy",
+        cover: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - Into the Woods",
+                text: "Nobody entered the forbidden forest after sunset. But when his sister disappeared, Ethan had no choice."
+            },
+            {
+                title: "Chapter 2 - The Guardian",
+                text: "Deep inside the forest, Ethan encountered a mysterious guardian who offered to help him find his sister."
+            }
+        ]
+    },
+    {
+        id: 11,
+        title: "The Silent Witness",
+        author: "Grace Williams",
+        genre: "Mystery",
+        cover: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - The Crime",
+                text: "Detective James arrived at the mansion just before midnight. Everyone claimed they had heard nothing, but someone was lying."
+            },
+            {
+                title: "Chapter 2 - The Truth",
+                text: "A forgotten photograph revealed the missing piece of the puzzle. The person responsible had been in the room all along."
+            }
+        ]
+    },
+    {
+        id: 12,
+        title: "Mission Impossible",
+        author: "Chris Walker",
+        genre: "Action",
+        cover: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500",
+        chapters: [
+            {
+                title: "Chapter 1 - Secret Operation",
+                text: "An elite agent received a secret assignment to recover a mysterious device before it fell into the wrong hands."
+            },
+            {
+                title: "Chapter 2 - No Way Back",
+                text: "With enemies closing in, the agent had to make one final decision that would determine the fate of the mission."
+            }
+        ]
     }
-
-    document.getElementById("loginMessage").textContent =
-        "This is a demo login. Connect a secure authentication service to create real accounts.";
-}
-
-displayBooks();
-
-</script>
-
-</body>
-</html>
+];
