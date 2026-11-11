@@ -1,1 +1,21 @@
+
+{
+  "name": "NovelVerse - Novel Reading",
+  "short_name": "NovelVerse",
+  "description": "Discover and read amazing novels anywhere.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0c14",
+  "theme_color": "#171522",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
 manifest.json
