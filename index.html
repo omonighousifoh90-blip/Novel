@@ -1,802 +1,289 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NovelVerse - Read Your Next Story</title>
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background: #0d0c14;
-    color: #f5f2ff;
-    font-family: Arial, sans-serif;
-}
-
-header {
-    background: #171522;
-    padding: 20px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #292536;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-.logo {
-    font-size: 25px;
-    font-weight: bold;
-    color: #b99aff;
-}
-
-nav a {
-    color: #ddd8eb;
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 14px;
-}
-
-nav a:hover {
-    color: #bd9aff;
-}
-
-.hero {
-    padding: 75px 7%;
-    background: linear-gradient(120deg, #211735, #10101b);
-}
-
-.hero h1 {
-    font-size: 42px;
-    max-width: 600px;
-    margin-bottom: 15px;
-}
-
-.hero p {
-    color: #b6b0c6;
-    margin-bottom: 25px;
-    line-height: 1.7;
-}
-
-.hero button, .primary-btn {
-    background: #a77af5;
-    color: white;
-    border: none;
-    padding: 13px 24px;
-    border-radius: 7px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.hero button:hover, .primary-btn:hover {
-    background: #8757db;
-}
-
-.section {
-    padding: 40px 7%;
-}
-
-.section h2 {
-    margin-bottom: 22px;
-    font-size: 24px;
-}
-
-.search-box {
-    width: 100%;
-    padding: 15px;
-    background: #191725;
-    border: 1px solid #383146;
-    color: white;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    outline: none;
-}
-
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.filters button {
-    background: #201c2d;
-    color: white;
-    border: 1px solid #393148;
-    padding: 9px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.filters button.active,
-.filters button:hover {
-    background: #a77af5;
-}
-
-.book-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-    gap: 22px;
-}
-
-.book {
-    background: #191725;
-    border: 1px solid #2b2738;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: 0.3s;
-}
-
-.book:hover {
-    transform: translateY(-5px);
-    border-color: #a77af5;
-}
-
-.book img {
-    width: 100%;
-    height: 210px;
-    object-fit: cover;
-    background: #30283e;
-}
-
-.book-info {
-    padding: 13px;
-}
-
-.book-info h3 {
-    font-size: 16px;
-    margin-bottom: 7px;
-}
-
-.book-info p {
-    color: #aaa3ba;
-    font-size: 13px;
-    margin-bottom: 12px;
-}
-
-.book-info button {
-    width: 100%;
-    background: #a77af5;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.favorite {
-    background: #30283e !important;
-    margin-top: 7px;
-}
-
-footer {
-    background: #171522;
-    padding: 30px;
-    text-align: center;
-    color: #aaa3ba;
-    margin-top: 40px;
-}
-
-/* Reader */
-
-.reader {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #0d0c14;
-    z-index: 20;
-    overflow-y: auto;
-    padding: 25px 7%;
-}
-
-.reader-content {
-    max-width: 750px;
-    margin: 35px auto;
-}
-
-.reader h2 {
-    color: #c3a5ff;
-    margin-bottom: 20px;
-}
-
-.reader p {
-    font-size: 18px;
-    line-height: 2;
-    color: #e2ddeb;
-    margin-bottom: 20px;
-}
-
-.reader button {
-    padding: 12px 18px;
-    border: none;
-    border-radius: 6px;
-    background: #a77af5;
-    color: white;
-    cursor: pointer;
-    margin: 5px;
-}
-
-.close-btn {
-    background: #382c49 !important;
-}
-
-/* Login */
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #000c;
-    z-index: 30;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.modal-box {
-    background: #191725;
-    padding: 30px;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 380px;
-}
-
-.modal-box h2 {
-    margin-bottom: 20px;
-}
-
-.modal-box input {
-    width: 100%;
-    padding: 13px;
-    margin-bottom: 12px;
-    border-radius: 6px;
-    background: #0d0c14;
-    border: 1px solid #383146;
-    color: white;
-}
-
-.modal-box button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    border: none;
-    border-radius: 6px;
-    background: #a77af5;
-    color: white;
-    cursor: pointer;
-}
-
-.modal-box .close-btn {
-    background: #383146;
-}
-
-@media(max-width:600px) {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#11101b">
+  <title>NovelVerse | Read Your Next Adventure</title>
+  <style>
+    :root {
+      --bg: #100f18;
+      --panel: #191725;
+      --panel2: #211e30;
+      --text: #f5f2ff;
+      --muted: #aaa4bd;
+      --accent: #b58aff;
+      --accent2: #8d62d8;
+      --gold: #f1c879;
+      --line: rgba(255,255,255,.09);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: Arial, sans-serif; line-height: 1.6; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
     header {
-        padding: 17px 5%;
+      position: sticky; top: 0; z-index: 20; display: flex; align-items: center;
+      justify-content: space-between; gap: 18px; padding: 15px 6%;
+      background: rgba(17,16,27,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px);
     }
-
-    nav a {
-        margin-left: 9px;
-        font-size: 12px;
+    .brand { color: var(--text); font-size: 1.45rem; font-weight: 800; text-decoration: none; letter-spacing: .3px; }
+    .brand span { color: var(--accent); }
+    nav { display: flex; gap: 20px; align-items: center; }
+    nav a { color: var(--muted); text-decoration: none; font-size: .95rem; }
+    nav a:hover { color: var(--text); }
+    .hero {
+      min-height: 340px; padding: 70px 7%; display: flex; align-items: center;
+      background: linear-gradient(90deg, rgba(16,15,24,.98), rgba(16,15,24,.78), rgba(16,15,24,.35)),
+      url("https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1800&q=85") center/cover;
     }
-
-    .hero h1 {
-        font-size: 32px;
+    .hero-content { max-width: 650px; }
+    .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: .76rem; font-weight: bold; }
+    h1 { font-size: clamp(2.3rem, 6vw, 4.3rem); line-height: 1.08; margin: 13px 0; }
+    .hero p { color: #d0cadd; max-width: 540px; }
+    .primary-btn, .filter-btn, .small-btn {
+      border: 0; border-radius: 9px; padding: 11px 17px; font-weight: 700;
+      transition: .2s ease;
     }
-
-    .section {
-        padding: 30px 5%;
+    .primary-btn { margin-top: 22px; background: var(--accent); color: #171020; }
+    .primary-btn:hover { background: #c9adff; transform: translateY(-2px); }
+    main { width: min(1180px, 90%); margin: 0 auto; }
+    .section { padding: 42px 0 20px; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 20px; }
+    .section-heading h2 { font-size: 1.65rem; }
+    .section-heading p { color: var(--muted); font-size: .9rem; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 24px; }
+    .search { flex: 1 1 230px; min-width: 0; background: var(--panel); border: 1px solid var(--line); color: var(--text); padding: 12px 15px; border-radius: 9px; outline: none; }
+    .search:focus { border-color: var(--accent); }
+    .filter-btn { background: var(--panel2); color: var(--muted); border: 1px solid var(--line); }
+    .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #171020; }
+    .book-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
+    .book-card { background: var(--panel); border: 1px solid var(--line); border-radius: 13px; overflow: hidden; transition: .22s; }
+    .book-card:hover { transform: translateY(-5px); border-color: rgba(181,138,255,.55); }
+    .cover-wrap { position: relative; height: 225px; background: var(--panel2); overflow: hidden; }
+    .cover { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .genre-tag { position: absolute; top: 10px; left: 10px; background: rgba(15,14,22,.85); color: var(--gold); border-radius: 20px; padding: 4px 9px; font-size: .7rem; }
+    .book-info { padding: 13px; }
+    .book-info h3 { font-size: 1rem; line-height: 1.3; margin-bottom: 5px; }
+    .author { color: var(--muted); font-size: .82rem; margin-bottom: 12px; }
+    .card-actions { display: flex; gap: 8px; }
+    .small-btn { flex: 1; padding: 8px 9px; font-size: .8rem; background: var(--accent); color: #171020; }
+    .small-btn.secondary { background: var(--panel2); color: var(--text); border: 1px solid var(--line); }
+    .small-btn:hover { filter: brightness(1.12); }
+    .heart { position: absolute; top: 9px; right: 9px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: rgba(15,14,22,.85); color: white; font-size: 1.1rem; }
+    .heart.saved { color: #ff6f91; }
+    .empty { grid-column: 1/-1; padding: 30px; text-align: center; color: var(--muted); background: var(--panel); border-radius: 12px; }
+    footer { margin-top: 55px; padding: 28px 6%; text-align: center; color: var(--muted); border-top: 1px solid var(--line); font-size: .88rem; }
+    .modal { display: none; position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.82); padding: 18px; overflow-y: auto; }
+    .modal.show { display: flex; align-items: center; justify-content: center; }
+    .reader-box { width: min(760px, 100%); background: #191725; border: 1px solid var(--line); border-radius: 15px; padding: 25px; margin: auto; }
+    .reader-top { display: flex; justify-content: space-between; align-items: start; gap: 15px; }
+    .reader-top h2 { font-size: 1.5rem; }
+    .close-btn { background: var(--panel2); color: white; border: 0; border-radius: 8px; padding: 7px 12px; }
+    .chapter-label { color: var(--gold); margin: 22px 0 10px; font-weight: bold; }
+    .chapter-text { color: #ded9e9; white-space: pre-line; line-height: 1.9; }
+    .reader-controls { display: flex; justify-content: space-between; gap: 12px; margin-top: 25px; }
+    .reader-controls button { background: var(--accent); color: #171020; border: 0; border-radius: 8px; padding: 10px 15px; font-weight: bold; }
+    .reader-controls button:disabled { opacity: .35; cursor: not-allowed; }
+    @media (max-width: 1000px) { .book-grid { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+    @media (max-width: 720px) {
+      header { padding: 13px 5%; flex-wrap: wrap; }
+      nav { width: 100%; justify-content: space-between; gap: 10px; }
+      nav a { font-size: .85rem; }
+      .hero { min-height: 310px; padding: 55px 6%; }
+      main { width: 90%; }
+      .book-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 13px; }
+      .cover-wrap { height: 205px; }
+      .section-heading { align-items: start; flex-direction: column; }
     }
-
-    .book-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-    }
-
-    .book img {
-        height: 170px;
-    }
-}
-</style>
+    @media (max-width: 360px) { .cover-wrap { height: 165px; } .book-info { padding: 10px; } }
+  </style>
 </head>
-
 <body>
-
-<header>
-    <div class="logo">NovelVerse.</div>
+  <header>
+    <a class="brand" href="#">Novel<span>Verse</span></a>
     <nav>
-        <a href="#home">Home</a>
-        <a href="#library">Library</a>
-        <a href="#favorites">Favorites</a>
-        <a href="#" onclick="openLogin()">Login</a>
+      <a href="#home">Home</a>
+      <a href="#library">Library</a>
+      <a href="#favorites">Favourites</a>
     </nav>
-</header>
+  </header>
 
-<section class="hero" id="home">
-    <h1>Discover Stories That Stay With You.</h1>
-    <p>
-        Explore amazing novels, discover new authors
-        and enjoy your favorite stories anywhere.
-    </p>
-    <button onclick="document.getElementById('library').scrollIntoView()">
-        Explore Novels
-    </button>
-</section>
-
-<section class="section" id="library">
-    <h2>Explore Our Library</h2>
-
-    <input
-        class="search-box"
-        type="text"
-        id="search"
-        placeholder="Search novels or authors..."
-        oninput="displayBooks()"
-    >
-
-    <div class="filters">
-        <button class="active" onclick="filterBooks('All', this)">All</button>
-        <button onclick="filterBooks('Romance', this)">Romance</button>
-        <button onclick="filterBooks('Fantasy', this)">Fantasy</button>
-        <button onclick="filterBooks('Action', this)">Action</button>
-        <button onclick="filterBooks('Mystery', this)">Mystery</button>
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="eyebrow">Your next chapter starts here</div>
+      <h1>Stories that take you somewhere.</h1>
+      <p>Explore romance, fantasy, action and mystery. Find a story you love and enjoy reading right here on NovelVerse.</p>
+      <a href="#library"><button class="primary-btn">Explore the library</button></a>
     </div>
+  </section>
 
-    <div class="book-grid" id="bookGrid"></div>
-</section>
+  <main>
+    <section class="section" id="library">
+      <div class="section-heading">
+        <div><h2>Explore the library</h2><p>Choose a novel and start reading.</p></div>
+        <p id="bookCount">10 novels</p>
+      </div>
+      <div class="toolbar">
+        <input class="search" id="searchInput" type="search" placeholder="Search by title or author..." aria-label="Search novels">
+        <button class="filter-btn active" data-genre="All">All</button>
+        <button class="filter-btn" data-genre="Romance">Romance</button>
+        <button class="filter-btn" data-genre="Fantasy">Fantasy</button>
+        <button class="filter-btn" data-genre="Action">Action</button>
+        <button class="filter-btn" data-genre="Mystery">Mystery</button>
+      </div>
+      <div class="book-grid" id="bookGrid"></div>
+    </section>
 
-<section class="section" id="favorites">
-    <h2>My Favorite Novels</h2>
-    <div class="book-grid" id="favoriteGrid"></div>
-</section>
+    <section class="section" id="favorites">
+      <div class="section-heading">
+        <div><h2>Your favourites</h2><p>Novels you have saved for later.</p></div>
+      </div>
+      <div class="book-grid" id="favoriteGrid">
+        <div class="empty">You have not saved any novels yet. Tap the heart on a book to add it here.</div>
+      </div>
+    </section>
+  </main>
 
-<footer>
-    <p>© 2026 NovelVerse. All Rights Reserved.</p>
-    <p style="margin-top:10px">Your world of endless stories.</p>
-</footer>
+  <footer>© 2026 NovelVerse. Made for readers and story lovers.</footer>
 
-<!-- Reading area -->
-<div class="reader" id="reader">
-    <button class="close-btn" onclick="closeReader()">← Back to Library</button>
-
-    <div class="reader-content">
-        <h2 id="readerTitle"></h2>
-        <p id="readerAuthor"></p>
-        <hr style="border-color:#383146;margin:20px 0">
-        <h3 id="chapterTitle"></h3>
-        <p id="chapterText"></p>
-
-        <button onclick="previousChapter()">Previous Chapter</button>
-        <button onclick="nextChapter()">Next Chapter</button>
+  <div class="modal" id="readerModal" role="dialog" aria-modal="true" aria-labelledby="readerTitle">
+    <div class="reader-box">
+      <div class="reader-top">
+        <div><h2 id="readerTitle">Novel title</h2><p id="readerAuthor" class="author"></p></div>
+        <button class="close-btn" id="closeReader" aria-label="Close reader">✕</button>
+      </div>
+      <div class="chapter-label" id="chapterLabel">Chapter 1</div>
+      <div class="chapter-text" id="chapterText"></div>
+      <div class="reader-controls">
+        <button id="previousBtn">← Previous</button>
+        <button id="nextBtn">Next →</button>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- Login area -->
-<div class="modal" id="loginModal">
-    <div class="modal-box">
-        <h2>Welcome to NovelVerse</h2>
-        <input id="username" placeholder="Username">
-        <input id="password" type="password" placeholder="Password">
-        <button onclick="login()">Login</button>
-        <button class="close-btn" onclick="closeLogin()">Close</button>
-        <p id="loginMessage" style="margin-top:15px;color:#c3a5ff"></p>
-    </div>
-</div>
+  <script>
+    // Ten sample novels. You can add more novels to this list later.
+    const novels = [
+      {
+        id: 1, title: "The Hidden Heart", author: "Amara James", genre: "Romance",
+        cover: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "A Chance Meeting", text: "Rain tapped softly against the windows of the little bookshop. Maya reached for the last copy of her favourite novel at the exact moment another hand touched it.\n\n“Looks like we have the same taste,” a warm voice said. She looked up and met the eyes of a stranger with a smile that made the noisy street disappear.\n\nNeither of them knew that this small moment would change the shape of their lives." },
+          { title: "A Familiar Stranger", text: "Three days later, Maya saw him again at the café across the road. His name was Daniel, and he remembered the bookshop instantly.\n\nThey talked about stories, music and the places they hoped to visit. When the rain started, Daniel offered to walk her home. Maya said yes, surprised by how natural it felt." }
+        ]
+      },
+      {
+        id: 2, title: "Kingdom of Shadows", author: "Oliver King", genre: "Fantasy",
+        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "The Darkened Crown", text: "For a thousand years, the kingdom of Eldoria had been protected by a crown of light. On the night the crown went dark, every bell in the capital rang at once.\n\nYoung mapmaker Elian found a strange symbol glowing on his palm. The royal guards called it a curse. The old librarian called it a key." },
+          { title: "Beyond the Gate", text: "At sunrise, Elian slipped through the northern gate with a worn map and a small lantern. The forest beyond the wall was silent, even the birds seeming afraid.\n\nA silver fox appeared on the path. It looked at the symbol on his hand, then turned toward the mountains as if inviting him to follow." }
+        ]
+      },
+      {
+        id: 3, title: "The Last Mission", author: "Chris Walker", genre: "Action",
+        cover: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "Midnight Signal", text: "The signal arrived at 02:14. It contained only six words: “The convoy never reached the border.”\n\nCaptain Ryan Cole stared at the message. His team had been sent home weeks ago, but the names on the missing passenger list included someone he had promised to protect.\n\nHe picked up his jacket. The mission was not over." },
+          { title: "Into the Storm", text: "A storm rolled over the mountain road as Ryan and his partner approached the last known location. Their radio crackled with a voice they thought they would never hear again.\n\n“Cole, if you can hear me, do not trust the map.” The transmission ended in static." }
+        ]
+      },
+      {
+        id: 4, title: "Mystery of the Night", author: "Grace Williams", genre: "Mystery",
+        cover: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "The Empty House", text: "Every night at exactly midnight, a light appeared in the empty house at the end of Willow Lane. The neighbours insisted nobody had lived there for twenty years.\n\nWhen journalist Nora Reed investigated, she found fresh footprints in the dust and a letter addressed to her by name." },
+          { title: "The Letter", text: "The letter contained a photograph of the house, taken from across the street that very evening. On its back were five words: “You are already being watched.”\n\nNora folded the paper and listened. Somewhere upstairs, a floorboard creaked." }
+        ]
+      },
+      {
+        id: 5, title: "Love Beyond Distance", author: "Emily Rose", genre: "Romance",
+        cover: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "Across the Miles", text: "Tomi and Alex lived in different cities, but every evening they met through a video call. They shared jokes, dreams and the little details of ordinary days.\n\nWhen the calls began to feel like home, they decided it was time to meet in person." },
+          { title: "The Arrival", text: "At the station, Tomi held a handwritten sign and tried to calm her racing heart. Then she spotted Alex in the crowd.\n\nThe distance that had filled their conversations suddenly became only a few steps." }
+        ]
+      },
+      {
+        id: 6, title: "The Dragon's Secret", author: "Daniel Frost", genre: "Fantasy",
+        cover: "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "The Mountain Cave", text: "A strange blue light shone from a crack in the mountain. Curious apprentice Nia followed it and discovered a dragon with a broken wing.\n\nInstead of breathing fire, the creature spoke her name and asked for help." },
+          { title: "An Ancient Promise", text: "The dragon revealed that Nia's family had guarded a secret for generations. A forgotten promise connected her village to the last dragons.\n\nNia had one night to decide whether to protect the secret or reveal it to the world." }
+        ]
+      },
+      {
+        id: 7, title: "City of Broken Dreams", author: "Michael Brooks", genre: "Mystery",
+        cover: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "The Missing Artist", text: "Famous street artist Juno Vale vanished on the night her biggest mural was completed. The painting showed a city skyline with one window painted bright red.\n\nDetective Hale noticed that the red window belonged to a building that did not exist on any map." },
+          { title: "A Hidden Address", text: "Behind the mural, Hale found a small metal key and a note with three numbers. They led him to an old train station beneath the city.\n\nA train waited there, though the station had been closed for decades." }
+        ]
+      },
+      {
+        id: 8, title: "Warriors of Destiny", author: "Robert Hayes", genre: "Action",
+        cover: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "The Call to Rise", text: "When the border villages went dark, five unlikely friends answered the king's call. None of them had fought in a real battle, but each carried a skill their land desperately needed.\n\nTheir journey began before dawn, with danger waiting beyond the hills." },
+          { title: "The First Test", text: "At the old bridge, the group found their path blocked. Their leader wanted to charge ahead, but the youngest member noticed marks hidden beneath the stones.\n\nThe first victory came not from strength, but from paying attention." }
+        ]
+      },
+      {
+        id: 9, title: "A Promise in Paris", author: "Sophia Lane", genre: "Romance",
+        cover: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "The Little Café", text: "On her first morning in Paris, Elise found a tiny café tucked away on a quiet street. Inside, a handwritten note rested beside the window: “For the person who still believes in promises.”\n\nShe smiled, not knowing the note had been waiting for her." },
+          { title: "The Old Photograph", text: "The café owner showed Elise a photograph of two young people standing by the river many years earlier. One of them looked exactly like the man Elise had met on the train.\n\nThere was a story here, and she wanted to hear it." }
+        ]
+      },
+      {
+        id: 10, title: "The Silent Witness", author: "Ava Morgan", genre: "Mystery",
+        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=85",
+        chapters: [
+          { title: "A Room Without Clues", text: "The museum's rarest painting disappeared without setting off a single alarm. Security footage showed an empty gallery all night.\n\nOnly one person had been in the building: the night cleaner, who had not spoken a word since the previous winter." },
+          { title: "What the Eyes Saw", text: "Detective Morgan returned to the gallery and noticed the cleaner staring at the frame rather than the empty space. A tiny scratch on the wood formed the shape of an arrow.\n\nThe witness could not speak, but perhaps the room could tell the story." }
+        ]
+      }
+    ];
 
-<script>
+    const bookGrid = document.getElementById("bookGrid");
+    const favoriteGrid = document.getElementById("favoriteGrid");
+    const searchInput = document.getElementById("searchInput");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    let activeGenre = "All";
+    let currentNovel = null;
+    let currentChapter = 0;
+    let favorites = JSON.parse(localStorage.getItem("novelverse-favorites") || "[]");
 
-// Novel database: replace these sample stories with your own.
-const novels = [
-    {
-        id: 1,
-        title: "The Hidden Heart",
-        author: "Alex Morgan",
-        genre: "Romance",
-        cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Beginning",
-                text: "The rain fell softly against the window. Amelia stood alone, wondering whether life would ever bring her the happiness she had always dreamed of. Then came a knock at the door. Someone had returned after years away."
-            },
-            {
-                title: "Chapter 2 - Unexpected Meeting",
-                text: "The door opened slowly. Standing outside was Daniel, the person she had tried so hard to forget. Neither spoke for a moment. Some memories never truly disappear."
-            }
-        ]
-    },
-    {
-        id: 2,
-        title: "Kingdom of Shadows",
-        author: "James Carter",
-        genre: "Fantasy",
-        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Lost Kingdom",
-                text: "Beyond the mountains stood a forgotten kingdom. Its towers had remained silent for centuries, until a young traveler discovered a mysterious glowing stone."
-            },
-            {
-                title: "Chapter 2 - The Awakening",
-                text: "The stone began to shine brighter. An ancient voice echoed through the valley, calling the traveler by a name nobody had spoken in generations."
-            }
-        ]
-    },
-    {
-        id: 3,
-        title: "The Last Mission",
-        author: "David Stone",
-        genre: "Action",
-        cover: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Assignment",
-                text: "At midnight, a message arrived. One final mission stood between Marcus and the truth he had been chasing for years."
-            },
-            {
-                title: "Chapter 2 - The Chase",
-                text: "Engines roared across the empty streets. Marcus knew he had only one chance to finish the mission."
-            }
-        ]
-    },
-    {
-        id: 4,
-        title: "Mystery of the Night",
-        author: "Sarah Blake",
-        genre: "Mystery",
-        cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Secret",
-                text: "Every night at exactly midnight, a light appeared in the abandoned house. Nobody knew who lived there, or why the light never went out."
-            },
-            {
-                title: "Chapter 2 - The Discovery",
-                text: "Curiosity finally overcame fear. Emma walked toward the old house, unaware that someone had been watching her."
-            }
-        ]
+    function createBookCard(book) {
+      const isSaved = favorites.includes(book.id);
+      return `
+        <article class="book-card">
+          <div class="cover-wrap">
+            <img class="cover" src="${book.cover}" alt="Cover artwork for ${book.title}" loading="lazy"
+              onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#302644,#151321)'">
+            <span class="genre-tag">${book.genre}</span>
+            <button class="heart ${isSaved ? "saved" : ""}" onclick="toggleFavorite(${book.id})" aria-label="Toggle favourite">${isSaved ? "♥" : "♡"}</button>
+          </div>
+          <div class="book-info">
+            <h3>${book.title}</h3>
+            <p class="author">by ${book.author}</p>
+            <div class="card-actions">
+              <button class="small-btn" onclick="openReader(${book.id})">Read now</button>
+              <button class="small-btn secondary" onclick="toggleFavorite(${book.id})">${isSaved ? "Saved" : "Save"}</button>
+            </div>
+          </div>
+        </article>`;
     }
-];
 
-let currentGenre = "All";
-let currentBook = null;
-let currentChapter = 0;
-
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-function displayBooks() {
-    const search = document.getElementById("search").value.toLowerCase();
-
-    const filtered = novels.filter(book => {
-        const matchesGenre =
-            currentGenre === "All" || book.genre === currentGenre;
-
-        const matchesSearch =
-            book.title.toLowerCase().includes(search) ||
-            book.author.toLowerCase().includes(search);
-
+    function displayBooks() {
+      const term = searchInput.value.trim().toLowerCase();
+      const filtered = novels.filter(book => {
+        const matchesGenre = activeGenre === "All" || book.genre === activeGenre;
+        const matchesSearch = book.title.toLowerCase().includes(term) || book.author.toLowerCase().includes(term);
         return matchesGenre && matchesSearch;
-    });
-
-    const grid = document.getElementById("bookGrid");
-
-    grid.innerHTML = filtered.length ? filtered.map(book => `
-        <div class="book">
-            <img src="${book.cover}" alt="${book.title}">
-            <div class="book-info">
-                <h3>${book.title}</h3>
-                <p>${book.author}</p>
-                <p>${book.genre}</p>
-                <button onclick="openReader(${book.id})">Read Novel</button>
-                <button class="favorite" onclick="toggleFavorite(${book.id})">
-                    ${favorites.includes(book.id) ? "♥ Saved" : "♡ Add Favorite"}
-                </button>
-            </div>
-        </div>
-    `).join("") : "<p>No novels found.</p>";
-
-    displayFavorites();
-}
-
-function filterBooks(genre, button) {
-    currentGenre = genre;
-
-    document.querySelectorAll(".filters button").forEach(btn => {
-        btn.classList.remove("active");
-    });
-
-    button.classList.add("active");
-    displayBooks();
-}
-
-function toggleFavorite(id) {
-    if (favorites.includes(id)) {
-        favorites = favorites.filter(item => item !== id);
-    } else {
-        favorites.push(id);
-    }
-
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    displayBooks();
-}
-
-function displayFavorites() {
-    const grid = document.getElementById("favoriteGrid");
-
-    const saved = novels.filter(book => favorites.includes(book.id));
-
-    grid.innerHTML = saved.length ? saved.map(book => `
-        <div class="book">
-            <img src="${book.cover}" alt="${book.title}">
-            <div class="book-info">
-                <h3>${book.title}</h3>
-                <p>${book.author}</p>
-                <button onclick="openReader(${book.id})">Read Novel</button>
-                <button class="favorite" onclick="toggleFavorite(${book.id})">
-                    Remove Favorite
-                </button>
-            </div>
-        </div>
-    `).join("") : "<p>You have no favorite novels yet.</p>";
-}
-
-function openReader(id) {
-    currentBook = novels.find(book => book.id === id);
-    currentChapter = 0;
-
-    document.getElementById("reader").style.display = "block";
-    showChapter();
-
-    window.scrollTo(0, 0);
-}
-
-function showChapter() {
-    const chapter = currentBook.chapters[currentChapter];
-
-    document.getElementById("readerTitle").textContent = currentBook.title;
-    document.getElementById("readerAuthor").textContent = "By " + currentBook.author;
-    document.getElementById("chapterTitle").textContent = chapter.title;
-    document.getElementById("chapterText").textContent = chapter.text;
-}
-
-function nextChapter() {
-    if (currentChapter < currentBook.chapters.length - 1) {
-        currentChapter++;
-        showChapter();
-    } else {
-        alert("You have reached the last chapter!");
-    }
-}
-
-function previousChapter() {
-    if (currentChapter > 0) {
-        currentChapter--;
-        showChapter();
-    }
-}
-
-function closeReader() {
-    document.getElementById("reader").style.display = "none";
-}
-
-function openLogin() {
-    document.getElementById("loginModal").style.display = "flex";
-}
-
-function closeLogin() {
-    document.getElementById("loginModal").style.display = "none";
-}
-
-function login() {
-const novels = [
-    {
-        id: 1,
-        title: "The Hidden Heart",
-        author: "Alex Morgan",
-        genre: "Romance",
-        cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Beginning",
-                text: "The rain fell softly against the window. Amelia stood alone, wondering whether life would ever bring her the happiness she had always dreamed of. Then came a knock at the door."
-            },
-            {
-                title: "Chapter 2 - Unexpected Meeting",
-                text: "The door opened slowly. Standing outside was Daniel, the person she had tried so hard to forget. Some memories never truly disappear."
-            }
-        ]
-    },
-    {
-        id: 2,
-        title: "Kingdom of Shadows",
-        author: "James Carter",
-        genre: "Fantasy",
-        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Lost Kingdom",
-                text: "Beyond the mountains stood a forgotten kingdom. Its towers had remained silent for centuries, until a young traveler discovered a mysterious glowing stone."
-            },
-            {
-                title: "Chapter 2 - The Awakening",
-                text: "The stone began to shine brighter. An ancient voice echoed through the valley, calling the traveler by a name nobody had spoken in generations."
-            }
-        ]
-    },
-    {
-        id: 3,
-        title: "The Last Mission",
-        author: "David Stone",
-        genre: "Action",
-        cover: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Assignment",
-                text: "At midnight, a message arrived. One final mission stood between Marcus and the truth he had been chasing for years."
-            },
-            {
-                title: "Chapter 2 - The Chase",
-                text: "Engines roared across the empty streets. Marcus knew he had only one chance to finish the mission."
-            }
-        ]
-    },
-    {
-        id: 4,
-        title: "Mystery of the Night",
-        author: "Sarah Blake",
-        genre: "Mystery",
-        cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Secret",
-                text: "Every night at exactly midnight, a light appeared in the abandoned house. Nobody knew who lived there, or why the light never went out."
-            },
-            {
-                title: "Chapter 2 - The Discovery",
-                text: "Curiosity finally overcame fear. Emma walked toward the old house, unaware that someone had been watching her."
-            }
-        ]
-    },
-    {
-        id: 5,
-        title: "Love Beyond Distance",
-        author: "Emily Rose",
-        genre: "Romance",
-        cover: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - Miles Apart",
-                text: "Every evening, Lily waited for the familiar message from Noah. Thousands of miles separated them, but their hearts remained close."
-            },
-            {
-                title: "Chapter 2 - The Promise",
-                text: "Noah made a promise that changed everything. He would return before the first rain of the season."
-            }
-        ]
-    },
-    {
-        id: 6,
-        title: "The Dragon's Secret",
-        author: "Oliver King",
-        genre: "Fantasy",
-        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Cave",
-                text: "A young explorer entered a forgotten cave and discovered a sleeping dragon surrounded by golden treasures."
-            },
-            {
-                title: "Chapter 2 - The Ancient Power",
-                text: "The dragon opened its eyes and revealed a secret about the kingdom that no human had known for a thousand years."
-            }
-        ]
-    },
-    {
-        id: 7,
-        title: "City of Broken Dreams",
-        author: "Michael Brooks",
-        genre: "Mystery",
-        cover: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Missing Letter",
-                text: "A strange letter arrived at Daniel's apartment. It contained only one sentence: Stop searching for the truth."
-            },
-            {
-                title: "Chapter 2 - Hidden Evidence",
-                text: "Daniel followed the clues through the old city and discovered that someone had been hiding a terrible secret."
-            }
-        ]
-    },
-    {
-        id: 8,
-        title: "Warriors of Destiny",
-        author: "Robert Hayes",
-        genre: "Action",
-        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Call",
-                text: "When danger threatened their village, three young warriors answered the call to protect their people."
-            },
-            {
-                title: "Chapter 2 - The Battle",
-                text: "The battle began at sunrise. Every warrior knew that the future of their home depended on their courage."
-            }
-        ]
-    },
-    {
-        id: 9,
-        title: "A Promise in Paris",
-        author: "Sophia Lane",
-        genre: "Romance",
-        cover: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - First Glance",
-                text: "Under the lights of Paris, Claire bumped into a stranger who would soon become the most important person in her life."
-            },
-            {
-                title: "Chapter 2 - A New Beginning",
-                text: "Their friendship slowly became something deeper, but Claire had one secret she was afraid to share."
-            }
-        ]
-    },
-    {
-        id: 10,
-        title: "The Forbidden Forest",
-        author: "Daniel Frost",
-        genre: "Fantasy",
-        cover: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - Into the Woods",
-                text: "Nobody entered the forbidden forest after sunset. But when his sister disappeared, Ethan had no choice."
-            },
-            {
-                title: "Chapter 2 - The Guardian",
-                text: "Deep inside the forest, Ethan encountered a mysterious guardian who offered to help him find his sister."
-            }
-        ]
-    },
-    {
-        id: 11,
-        title: "The Silent Witness",
-        author: "Grace Williams",
-        genre: "Mystery",
-        cover: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Crime",
-                text: "Detective James arrived at the mansion just before midnight. Everyone claimed they had heard nothing, but someone was lying."
-            },
-            {
-                title: "Chapter 2 - The Truth",
-                text: "A forgotten photograph revealed the missing piece of the puzzle. The person responsible had been in the room all along."
-            }
-        ]
-    },
-    {
-        id: 12,
-        title: "Mission Impossible",
-        author: "Chris Walker",
-        genre: "Action",
-        cover: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - Secret Operation",
-                text: "An elite agent received a secret assignment to recover a mysterious device before it fell into the wrong hands."
-            },
-            {
-                title: "Chapter 2 - No Way Back",
-                text: "With enemies closing in, the agent had to make one final decision that would determine the fate of the mission."
-            }
-        ]
-    }
-];
+      });
+      bookGrid.innerHTML = filtered.length ? filtered.map(createBookCard).join("") :
+        '<div class="empty">No novels found. Try another title or genre.</div>';
+      document.getElementById("bookCount").textContent =
