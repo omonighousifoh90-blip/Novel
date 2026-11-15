@@ -1,208 +1,179 @@
 
+<style>
+.novel-section {
+  padding: 20px;
+  background: #101827;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+.novel-section h2 {
+  text-align: center;
+  color: #f5c542;
+}
+.novel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+  gap: 15px;
+}
+.novel-card {
+  background: #202e43;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+}
+.novel-cover {
+  font-size: 55px;
+  padding: 15px;
+  background: #34445c;
+  border-radius: 10px;
+}
+.novel-card h3 { font-size: 16px; }
+.novel-card p { font-size: 13px; color: #ccc; }
+.novel-card button {
+  background: #f5c542;
+  color: #111;
+  border: 0;
+  padding: 10px;
+  border-radius: 7px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#novelReader {
+  display: none;
+  background: #202e43;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  line-height: 1.8;
+}
+#novelReader button {
+  background: #f5c542;
+  padding: 10px;
+  border: 0;
+  border-radius: 6px;
+}
+</style>
+
+<section class="novel-section">
+  <h2>📚 Explore Our 8 New Novels</h2>
+  <div class="novel-grid" id="novelGrid"></div>
+  <div id="novelReader">
+    <button onclick="closeNovel()">✖ Close</button>
+    <h2 id="readerTitle"></h2>
+    <h3 id="readerChapter"></h3>
+    <p id="readerText"></p>
+  </div>
+</section>
+
+<script>
 const novels = [
-    {
-        id: 1,
-        title: "The Hidden Heart",
-        author: "Alex Morgan",
-        genre: "Romance",
-        cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Beginning",
-                text: "The rain fell softly against the window. Amelia stood alone, wondering whether life would ever bring her the happiness she had always dreamed of. Then came a knock at the door."
-            },
-            {
-                title: "Chapter 2 - Unexpected Meeting",
-                text: "The door opened slowly. Standing outside was Daniel, the person she had tried so hard to forget. Some memories never truly disappear."
-            }
-        ]
-    },
-    {
-        id: 2,
-        title: "Kingdom of Shadows",
-        author: "James Carter",
-        genre: "Fantasy",
-        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Lost Kingdom",
-                text: "Beyond the mountains stood a forgotten kingdom. Its towers had remained silent for centuries, until a young traveler discovered a mysterious glowing stone."
-            },
-            {
-                title: "Chapter 2 - The Awakening",
-                text: "The stone began to shine brighter. An ancient voice echoed through the valley, calling the traveler by a name nobody had spoken in generations."
-            }
-        ]
-    },
-    {
-        id: 3,
-        title: "The Last Mission",
-        author: "David Stone",
-        genre: "Action",
-        cover: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Assignment",
-                text: "At midnight, a message arrived. One final mission stood between Marcus and the truth he had been chasing for years."
-            },
-            {
-                title: "Chapter 2 - The Chase",
-                text: "Engines roared across the empty streets. Marcus knew he had only one chance to finish the mission."
-            }
-        ]
-    },
-    {
-        id: 4,
-        title: "Mystery of the Night",
-        author: "Sarah Blake",
-        genre: "Mystery",
-        cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Secret",
-                text: "Every night at exactly midnight, a light appeared in the abandoned house. Nobody knew who lived there, or why the light never went out."
-            },
-            {
-                title: "Chapter 2 - The Discovery",
-                text: "Curiosity finally overcame fear. Emma walked toward the old house, unaware that someone had been watching her."
-            }
-        ]
-    },
-    {
-        id: 5,
-        title: "Love Beyond Distance",
-        author: "Emily Rose",
-        genre: "Romance",
-        cover: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - Miles Apart",
-                text: "Every evening, Lily waited for the familiar message from Noah. Thousands of miles separated them, but their hearts remained close."
-            },
-            {
-                title: "Chapter 2 - The Promise",
-                text: "Noah made a promise that changed everything. He would return before the first rain of the season."
-            }
-        ]
-    },
-    {
-        id: 6,
-        title: "The Dragon's Secret",
-        author: "Oliver King",
-        genre: "Fantasy",
-        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Cave",
-                text: "A young explorer entered a forgotten cave and discovered a sleeping dragon surrounded by golden treasures."
-            },
-            {
-                title: "Chapter 2 - The Ancient Power",
-                text: "The dragon opened its eyes and revealed a secret about the kingdom that no human had known for a thousand years."
-            }
-        ]
-    },
-    {
-        id: 7,
-        title: "City of Broken Dreams",
-        author: "Michael Brooks",
-        genre: "Mystery",
-        cover: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Missing Letter",
-                text: "A strange letter arrived at Daniel's apartment. It contained only one sentence: Stop searching for the truth."
-            },
-            {
-                title: "Chapter 2 - Hidden Evidence",
-                text: "Daniel followed the clues through the old city and discovered that someone had been hiding a terrible secret."
-            }
-        ]
-    },
-    {
-        id: 8,
-        title: "Warriors of Destiny",
-        author: "Robert Hayes",
-        genre: "Action",
-        cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Call",
-                text: "When danger threatened their village, three young warriors answered the call to protect their people."
-            },
-            {
-                title: "Chapter 2 - The Battle",
-                text: "The battle began at sunrise. Every warrior knew that the future of their home depended on their courage."
-            }
-        ]
-    },
-    {
-        id: 9,
-        title: "A Promise in Paris",
-        author: "Sophia Lane",
-        genre: "Romance",
-        cover: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - First Glance",
-                text: "Under the lights of Paris, Claire bumped into a stranger who would soon become the most important person in her life."
-            },
-            {
-                title: "Chapter 2 - A New Beginning",
-                text: "Their friendship slowly became something deeper, but Claire had one secret she was afraid to share."
-            }
-        ]
-    },
-    {
-        id: 10,
-        title: "The Forbidden Forest",
-        author: "Daniel Frost",
-        genre: "Fantasy",
-        cover: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - Into the Woods",
-                text: "Nobody entered the forbidden forest after sunset. But when his sister disappeared, Ethan had no choice."
-            },
-            {
-                title: "Chapter 2 - The Guardian",
-                text: "Deep inside the forest, Ethan encountered a mysterious guardian who offered to help him find his sister."
-            }
-        ]
-    },
-    {
-        id: 11,
-        title: "The Silent Witness",
-        author: "Grace Williams",
-        genre: "Mystery",
-        cover: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - The Crime",
-                text: "Detective James arrived at the mansion just before midnight. Everyone claimed they had heard nothing, but someone was lying."
-            },
-            {
-                title: "Chapter 2 - The Truth",
-                text: "A forgotten photograph revealed the missing piece of the puzzle. The person responsible had been in the room all along."
-            }
-        ]
-    },
-    {
-        id: 12,
-        title: "Mission Impossible",
-        author: "Chris Walker",
-        genre: "Action",
-        cover: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500",
-        chapters: [
-            {
-                title: "Chapter 1 - Secret Operation",
-                text: "An elite agent received a secret assignment to recover a mysterious device before it fell into the wrong hands."
-            },
-            {
-                title: "Chapter 2 - No Way Back",
-                text: "With enemies closing in, the agent had to make one final decision that would determine the fate of the mission."
-            }
-        ]
-    }
+  {
+    title: "The Billionaire's Secret",
+    cover: "💎",
+    genre: "Romance",
+    description: "A young woman discovers that the mysterious billionaire has been hiding a secret.",
+    chapter: "Chapter One",
+    text: "Amara never believed that one meeting could change her entire life. But when she walked into the grand office of Daniel Williams, everything she knew about love and wealth began to change. He looked at her and smiled. 'I have been waiting for you,' he whispered."
+  },
+  {
+    title: "Love Beyond Destiny",
+    cover: "❤️",
+    genre: "Romance",
+    description: "Two strangers meet and discover that destiny has a plan for them.",
+    chapter: "Chapter One",
+    text: "Rain poured across the city as Sarah ran through the streets. She bumped into a stranger carrying a black umbrella. Their eyes met, and for a moment, the busy city seemed completely silent."
+  },
+  {
+    title: "The Forgotten Princess",
+    cover: "👑",
+    genre: "Fantasy",
+    description: "A forgotten princess returns to reclaim her family's kingdom.",
+    chapter: "Chapter One",
+    text: "Deep inside the ancient forest, a young girl discovered a golden necklace. Unknown to her, the necklace belonged to the royal family that had disappeared many years ago."
+  },
+  {
+    title: "My Enemy, My Love",
+    cover: "💕",
+    genre: "Romance",
+    description: "A family rivalry turns into an unexpected love story.",
+    chapter: "Chapter One",
+    text: "Jessica hated everything about Michael. Their families had been enemies for generations. But when they were forced to work together, she discovered that he was not the person she imagined."
+  },
+  {
+    title: "The Dark Mansion",
+    cover: "🏚️",
+    genre: "Mystery",
+    description: "A mysterious mansion holds secrets nobody dares to uncover.",
+    chapter: "Chapter One",
+    text: "Nobody entered the mansion after sunset. Strange sounds came from its windows, and the neighbours refused to discuss what happened there. One evening, David decided to discover the truth."
+  },
+  {
+    title: "A Second Chance",
+    cover: "🌹",
+    genre: "Drama",
+    description: "After heartbreak, a woman gets another opportunity to find happiness.",
+    chapter: "Chapter One",
+    text: "Three years had passed since Emma's heart was broken. She promised herself never to love again. Then one unexpected phone call changed everything."
+  },
+  {
+    title: "The Secret Heiress",
+    cover: "💰",
+    genre: "Drama",
+    description: "A poor young woman discovers she is the heir to a powerful family.",
+    chapter: "Chapter One",
+    text: "Lily lived a simple life, working every day to support herself. She never imagined that a lawyer would arrive at her doorstep with documents revealing her true identity."
+  },
+  {
+    title: "Whispers of the Moon",
+    cover: "🌙",
+    genre: "Fantasy",
+    description: "A young woman discovers a magical power connected to the moon.",
+    chapter: "Chapter One",
+    text: "Every full moon, strange dreams visited Elena. One night, she woke up with a glowing symbol on her wrist. The old woman in the village saw it and immediately fell to her knees."
+  }
 ];
 
+const grid = document.getElementById("novelGrid");
+
+novels.forEach((novel, index) => {
+  const card = document.createElement("div");
+  card.className = "novel-card";
+
+  const cover = document.createElement("div");
+  cover.className = "novel-cover";
+  cover.textContent = novel.cover;
+
+  const title = document.createElement("h3");
+  title.textContent = novel.title;
+
+  const genre = document.createElement("p");
+  genre.textContent = novel.genre;
+
+  const description = document.createElement("p");
+  description.textContent = novel.description;
+
+  const button = document.createElement("button");
+  button.textContent = "Read Novel";
+  button.addEventListener("click", () => openNovel(index));
+
+  card.append(cover, title, genre, description, button);
+  grid.appendChild(card);
+});
+
+function openNovel(index) {
+  const novel = novels[index];
+
+  document.getElementById("readerTitle").textContent = novel.title;
+  document.getElementById("readerChapter").textContent = novel.chapter;
+  document.getElementById("readerText").textContent = novel.text;
+  document.getElementById("novelReader").style.display = "block";
+
+  document.getElementById("novelReader").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function closeNovel() {
+  document.getElementById("novelReader").style.display = "none";
+}
+</script>
